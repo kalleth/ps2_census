@@ -1,4 +1,6 @@
-require 'ps2_census/character'
+require 'httparty'
+require_relative 'ps2_census/base'
+require_relative 'ps2_census/character'
 
 module Ps2Census
   class << self
@@ -8,6 +10,10 @@ module Ps2Census
 
     def configure
       yield self
+    end
+
+    def base_uri
+      "#{API_URL}/#{endpoint}"
     end
   end
 end

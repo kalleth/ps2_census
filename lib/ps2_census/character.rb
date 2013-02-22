@@ -1,9 +1,36 @@
 module Ps2Census
-  class Character
-    attr_accessor :character_id
+  class Character < Base
+    attr_accessor :id
 
-    def initialize(character_id)
-      self.character_id = character_id
+    # Parameters not worth creating sub-models for
+    attr_accessor :name, :faction, :rank, :score, :creation_date, :active_class
+
+    class << self
+      def hide_options
+        "stats_one_life,stats,stats_daily,stats_weekly,stats_monthly,loadouts,item_list,skill_list,loadouts"
+      end
+
+      def by_id(character_id)
+        base_uri "#{Ps2Census.base_uri}"
+        response = get("/character/#{character_id}?c:hide=#{hide_options}")
+        validate_response(response)
+        # only obtaining a single character, so .first is correct (if we were searching, it wouldn't)
+        new(response['character_list'].first)
+      end
+
+      def validate_response(data)
+        true
+      end
+    end
+
+    def initialize(data)
+      self.name = data['name']['first']
+      self.faction = data['type']['faction']
+      # Again, we're only initialising a single character record.
+      self.rank = data['experience'].first['rank']
+      self.score = data['experience'].first['score']
+      self.creation_date = data['type']['creation_date']
+      self.active_class = data['profile']['active_name']['en']
     end
   end
 end
