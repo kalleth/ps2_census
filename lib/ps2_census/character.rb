@@ -21,7 +21,11 @@ module Ps2Census
         response = get("/character/#{character_id}?c:hide=#{hide_options}")
         validate_response(response)
         # only obtaining a single character, so .first is correct (if we were searching, it wouldn't)
-        new(response['character_list'].first)
+        if response.has_key?('character_list') && response['character_list'].any?
+          new(response['character_list'].first)
+        else
+          false
+        end
       end
 
       def validate_response(data)
@@ -30,6 +34,7 @@ module Ps2Census
     end
 
     def initialize(data)
+      self.id = data['id']
       self.name = data['name']['first']
       self.faction = data['type']['faction']
       # Again, we're only initialising a single character record.

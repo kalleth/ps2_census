@@ -14,6 +14,9 @@ SUPPORTED OBJECTS
 * Character
  * simple fields: name, faction, rank, score, creation_date, active_class
  * complex fields: times, certs
+* Outfit
+ * simple fields: alias, name, time_created, leader_character_id 
+ * methods: leader (returns Ps2Census::Character)
 
 USAGE
 =====
@@ -25,7 +28,7 @@ No problem for your own scripts yet, though.
 
 ```ruby
 Ps2Census.configure do |config|
-  config.endpoint = 'ps2-beta'
+  config.game = 'ps2-beta'
 end
 ```
 
