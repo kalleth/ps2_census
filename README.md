@@ -1,6 +1,6 @@
 Ps2Census
 =========
-A ruby wrapper for the Planetside 2 Census API
+A ruby wrapper for the Planetside 2 Census API. Does not yet support Service ID's.
 
 IN DEVELOPMENT
 ==============
@@ -13,14 +13,13 @@ SUPPORTED OBJECTS
 =================
 * Character
  * simple fields: name, faction, rank, score, creation_date, active_class
- * complex fields: none yet
+ * complex fields: times, certs
 
 USAGE
 =====
 ```ruby
 Ps2Census.configure do |config|
-  config.endpoint = 'ps2-beta'  # switch to 'ps2' to use the development
-                                # API. MAY NOT WORK AS EXPECTED.
+  config.endpoint = 'ps2-beta'
 end
 
 Ps2Census::Character.by_id('5428010618015189713')

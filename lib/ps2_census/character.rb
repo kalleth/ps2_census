@@ -1,9 +1,15 @@
+require_relative 'character_list/times'
+require_relative 'character_list/certs'
+
 module Ps2Census
   class Character < Base
     attr_accessor :id
 
     # Parameters not worth creating sub-models for
     attr_accessor :name, :faction, :rank, :score, :creation_date, :active_class
+    # complex objects
+    attr_accessor :certs
+    attr_accessor :times
 
     class << self
       def hide_options
@@ -31,6 +37,8 @@ module Ps2Census
       self.score = data['experience'].first['score']
       self.creation_date = data['type']['creation_date']
       self.active_class = data['profile']['active_name']['en']
+      self.certs = Ps2Census::CharacterList::Certs.new(data['certs'])
+      self.times = Ps2Census::CharacterList::Times.new(data['times'])
     end
   end
 end
