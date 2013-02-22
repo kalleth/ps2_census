@@ -7,5 +7,5 @@ Gem::Specification.new do |spec|
   spec.email                = 'tom+github@cishub.co.uk'
   spec.files                = %w(README.md ps2_census.gemspec)
   spec.files               += Dir.glob("lib/**/*.rb")
-  spec.add_dependency 'httparty', '~> 1.1'
+  spec.add_dependency 'httparty', '~> 0.10.2'
 end
