@@ -11,6 +11,7 @@ module Ps2Census
 
     def configure
       yield self
+      self
     end
 
     def base_uri
