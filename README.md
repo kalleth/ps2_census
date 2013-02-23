@@ -59,3 +59,11 @@ irb> o = Ps2Census::Outfit.by_id('37509488620602792')
 irb> o.leader
 # => #<Ps2Census::Character:0x4fd568 @id="5428010618030746929", @name="Dizzop", @faction="tr", @rank="40", @score="1609933", @creation_date="1353441972", @active_class="Engineer", @certs=#<Ps2Census::CharacterList::Certs:0x4fd958 @percentagetonext="65", @currentpoints="8130">, @times=#<Ps2Census::CharacterList::Times:0x4fd898 @last_save="1361569333", @last_login="1361567550", @minutes_played="10586">>
 ```
+
+If you want to include the members when querying the outfit object:
+
+```ruby
+Ps2Census::Outfit.by_id('37509488620602792', load_members: true)
+```
+
+But beware, this loads an utter shedload of data, so it can take a while to come back.
