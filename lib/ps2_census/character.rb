@@ -10,6 +10,8 @@ module Ps2Census
     # complex objects
     attr_accessor :certs
     attr_accessor :times
+    # conditional attributes
+    attr_accessor :rank, :member_since
 
     class << self
       def hide_options
@@ -44,6 +46,13 @@ module Ps2Census
       self.active_class = data['profile']['active_name']['en']
       self.certs = Ps2Census::CharacterList::Certs.new(data['certs'])
       self.times = Ps2Census::CharacterList::Times.new(data['times'])
+      if data.has_key?('rank')
+        # Loaded via outfit
+        self.rank = data['rank']
+        self.member_since = from_time(data['member_since'])
+      end
+    rescue NoMethodError
+      raise ApiLoadError
     end
   end
 end
